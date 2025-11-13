@@ -1,0 +1,92 @@
+{
+    "experiment": {
+        "exp_name": "dso_run",
+        "logdir" : "mdbench/algorithms/sr/dso/log", 
+        "seed" : 42
+    },
+    "task": {
+        "task_type": "regression",
+        "function_set": ["add", "sub", "mul", "div", "sin", "cos", "exp", "poly", "const"],
+        "poly_optimizer_params" : {
+            "degree": 3,
+            "coef_tol": 1e-10,
+            "regressor": "dso_least_squares",
+            "regressor_params": {
+                "cutoff_p_value": 1.0,
+                "n_max_terms": null,
+                "coef_tol": 1e-10
+            }
+        },
+        "metric": "inv_nrmse",
+        "metric_params": [1.0],
+        "protected": false,
+        "threshold": 1e-12
+    },
+    "logging" : {
+        "save_all_iterations" : false,
+        "save_summary" : false,
+        "save_positional_entropy" : false,
+        "save_pareto_front" : true,
+        "save_cache" : false,
+        "save_cache_r_min" : 0.9,
+        "save_freq" : 1,
+        "save_token_count" : false,
+        "hof" : 100
+    },
+    "gp_meld" : {
+        "run_gp_meld" : true,
+        "population_size" : 100,
+        "generations" : 20,
+        "crossover_operator" : "cxOnePoint",
+        "p_crossover" : 0.5,
+        "mutation_operator" : "multi_mutate",
+        "p_mutate" : 0.5,   
+        "tournament_size" : 5,
+        "train_n" : 50,
+        "mutate_tree_max" : 3,
+        "verbose" : false,
+        "parallel_eval" : true
+    },
+    "training": {
+        "n_samples": 100000,
+        "batch_size": 1000, 
+        "epsilon": 0.05, 
+        "n_cores_batch": 1,
+        "early_stopping": true
+    },
+    "policy_optimizer": {
+        "learning_rate": 0.0005, 
+        "entropy_weight": 0.05, 
+        "entropy_gamma": 0.7 
+    },
+    "prior": {
+        "length": {
+            "min_": 4,
+            "max_": 64,
+            "on": true
+        },
+        "repeat": {
+            "tokens": "const",
+            "min_": null,
+            "max_": 3,
+            "on": true
+        },
+        "inverse": {
+            "on": true
+        },
+        "trig": {
+            "on": true
+        },
+        "const": {
+            "on": true
+        },
+        "uniform_arity": {
+            "on": true
+        },
+        "soft_length": {
+            "loc": 10,
+            "scale": 5,
+            "on": true
+        }
+    }
+}

@@ -1,0 +1,33 @@
+name: dso
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.7  # DSO works best with Python 3.7
+  - numpy=1.19
+  - tensorflow=1.14
+  - numba=0.53.1
+  - sympy
+  - pandas
+  - scikit-learn
+  - click
+  - deap
+  - pathos
+  - seaborn
+  - tqdm
+  - findiff
+  - pyyaml
+  - prettytable
+  - pytest
+  - cython
+  - pip
+  - setuptools
+  - wheel
+  - pip:
+    - commentjson
+    - progress
+    # Optional dependencies for control tasks
+    # - mpi4py
+    # - gym[box2d]==0.15.4
+    # - pybullet
+    # - stable-baselines[mpi]==2.10.0

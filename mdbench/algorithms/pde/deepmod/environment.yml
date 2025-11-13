@@ -1,0 +1,8 @@
+channels:
+    - conda-forge
+dependencies:
+    - python=3.9
+    - findiff
+    - pip
+    - pip:
+        - deepymod==2.2.0

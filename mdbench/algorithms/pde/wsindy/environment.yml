@@ -1,0 +1,7 @@
+channels:
+    - conda-forge
+dependencies:
+    - python=3.9
+    - numpy=1.26.4
+    - pysindy=1.7.5
+    - findiff

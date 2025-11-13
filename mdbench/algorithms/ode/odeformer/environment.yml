@@ -1,0 +1,8 @@
+channels:
+    - conda-forge
+dependencies:
+    - python=3.9
+    - numpy=1.23.5
+    - pip
+    - pip:
+        - odeformer

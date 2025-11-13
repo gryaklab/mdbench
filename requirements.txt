@@ -1,0 +1,7 @@
+tqdm==4.67.1
+numpy==2.3.0
+matplotlib==3.10.3
+findiff==0.12.1
+scipy==1.16.0
+joblib==1.5.1
+scikit-learn==1.7.0
