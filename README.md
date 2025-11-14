@@ -2,9 +2,9 @@
 <div align="center">
 
 [![Python](https://img.shields.io/badge/Python-3.13.5-blue?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![License](https://img.shields.io/badge/License-Apache_2.0-green?style=for-the-badge)](LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 [![arXiv](https://img.shields.io/badge/arXiv-2506.07918-b31b1b.svg?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2509.20529)
-[![Datasets](https://img.shields.io/badge/Datasets-10.5281/zenodo.13-orange?style=for-the-badge)](https://doi.org/10.5281/zenodo.13993089)
+[![Datasets](https://img.shields.io/badge/Datasets-10.5281/zenodo.17611099-orange?style=for-the-badge)](https://doi.org/10.5281/zenodo.17611099)
 
 **Official implementation of paper [MDBench: Benchmarking Data-Driven Methods for Model Discovery](https://arxiv.org/abs/2509.20529) (AAAI 2026 Oral)**
 
@@ -32,17 +32,17 @@ In order to combine the different resulting json files, issue `python scripts/co
 
 ## Datasets
 
-The PDE and ODE datasets are hosted on ZENODO LINK. Datasets are stored in npz format, each including the following items:
-1. `t`: time points.
-2. `u`: Observered trajectory. Shape:
-    - ODE: `(n_time, n_dim)`
-    - PDE:
-        - 1D spatial: `(n_x, n_time, n_dim)`
-        - 2D spatial: `(n_x, n_y, n_time, n_dim)`
-        - 3D spatial: `(n_x, n_y, n_z, n_time, n_dim)`
+The PDE and ODE datasets are hosted at [https://doi.org/10.5281/zenodo.17611099](https://doi.org/10.5281/zenodo.17611099). Datasets are stored in NPZ format, each including the following items:
+1. `t`: Time points.
+2. `u`: Observered trajectory. `n_dim` refers to the number of state variables in a system.
+
+    | System Type   | Shape             |
+    | ------------- | ----------------- |
+    | ODE           | `(n_time, n_dim)` |
+    | PDE           | 1D spatial: `(n_x, n_time, n_dim)` <br> 2D spatial: `(n_x, n_y, n_time, n_dim)` <br> 3D spatial: `(n_x, n_y, n_z, n_time, n_dim)` |
 3. `du`: The time derivatives of clean data (data without noise). The shape is the same as `u`. The true derivatives for ODEs is computed from the true equations. For the PDEs, it is computed via finite difference on the clean observed trajectory.
-4. `x` (only for 1D, 2D, 3D spatial PDEs): `x` coordinates of the grid.
-4. `y` (only for 2D, 3D spatial PDEs): `y` coordinates of the grid.
+4. `x` (only for 1D, 2D, and 3D spatial PDEs): `x` coordinates of the grid.
+4. `y` (only for 2D and 3D spatial PDEs): `y` coordinates of the grid.
 4. `z` (only for 3D spatial PDEs): `z` coordinates of the grid.
 
 ### ODE
@@ -51,7 +51,7 @@ In order to generate ODE datasets, issue `python scripts/generate_ode.py --save_
 
 ### PDE
 
-FEniCS scripts generate PDE datasets in HDF5 and XDMF formats. The script `python -m scripts.convert_h5_to_npz --h5_dir H5_DIR --output_dir OUTPUT_DIR` converts the file to a format readable by mdbench. In order to preprocess the raw datasets, including derivative estimation, subsampling, and adding noise, issue `python -m scripts.unify_data_format --input_dir $(RAW_PDE_DATA_DIR) --output_dir $(PDE_DATA_DIR)`.
+FEniCS scripts generate PDE datasets in HDF5 and XDMF formats. The script `python -m scripts.convert_h5_to_npz --h5_dir H5_DIR --output_dir OUTPUT_DIR` converts the file to a format readable by MDBench. In order to preprocess the raw datasets, including derivative estimation, subsampling, and adding noise, issue `python -m scripts.unify_data_format --input_dir $(RAW_PDE_DATA_DIR) --output_dir $(PDE_DATA_DIR)`.
 
 | Dataset Name                      | Source   | Equation | Visualization |
 |-----------------------------------|----------|----------|---------------|
@@ -78,10 +78,9 @@ FEniCS scripts generate PDE datasets in HDF5 and XDMF formats. The script `pytho
 
 ## Methods
 
-Here is a summary of the algorithms and their descriptions. The equation type specifies the
-type of the equations that the method can discover. The algorithms are defined in the `mdbench/algorithms` directory.
+Here is a summary of the algorithms and their descriptions. The algorithms are implemented in the `mdbench/algorithms` directory.
 
-| Method Name   | Equation Type | Source
+| Method Name   | System Type | Source
 |-|-|-|
 | PDE-FIND      | PDE     | [Paper](https://www.science.org/doi/10.1126/sciadv.1602614) [Github 1](https://github.com/snagcliffs/PDE-FIND) [Github 2](https://github.com/dynamicslab/pysindy) |
 | SINDy         | ODE     | [Paper](https://arxiv.org/abs/1509.03580) [Github](https://github.com/dynamicslab/pysindy) |
@@ -91,7 +90,7 @@ type of the equations that the method can discover. The algorithms are defined i
 | DeepMoD       | PDE     | [Paper](https://arxiv.org/abs/1904.09406) [Github](https://github.com/PhIMaL/DeePyMoD/) |
 | EQL           | ODE/PDE | [Paper](https://proceedings.mlr.press/v80/sahoo18a.html) [Github](https://github.com/martius-lab/EQL?tab=readme-ov-file) |
 | uDSR          | ODE/PDE | [Paper](https://openreview.net/forum?id=2FNnBhwJsHK) [Github](https://github.com/dso-org/deep-symbolic-optimization) |
-| PySR          | SR      | [Paper](https://arxiv.org/abs/2305.01582) [Github](https://github.com/MilesCranmer/PySR) |
+| PySR          | ODE/PDE | [Paper](https://arxiv.org/abs/2305.01582) [Github](https://github.com/MilesCranmer/PySR) |
 | Operon        | ODE/PDE | [Paper](https://dl.acm.org/doi/10.1145/3377929.3398099) [Github](https://github.com/heal-research/operon) |
 | ODEformer     | ODE     | [Paper](https://arxiv.org/pdf/2310.05573.pdf) [Github](https://github.com/sdascoli/odeformer) |
 | End2End       | ODE/PDE | [Paper](https://arxiv.org/abs/2204.10532) [Github](https://github.com/facebookresearch/symbolicregression?tab=readme-ov-file) |
@@ -103,9 +102,9 @@ In order to add a new algorithm to the pipeline, create a new directory under `m
 
     - The space of hyperparameters are defined in a dictionary named `hyper_params` located outside of the class. The pipeline trains separate models with all the possible hyperparameter combinations and picks the best hyperparameter setting based on the performance on the validation data. The final model is trained on the training and validation data with the chosen hyperparameter setting.
 
-    - The parallel execution mechanism acts in two ways: 1) for GP-based methods and the methods that mdbench does not perform hyperparameter optimization, the `n_jobs` keyword argument is passed to the algorithms' constructor; 2) for other methods, the parallel execution occurs only in hyperparameter tuning phase and not in the training phase.
+    - The parallel execution mechanism acts in two ways: 1) for GP-based methods and the methods that MDBench does not perform hyperparameter optimization, the `n_jobs` keyword argument is passed to the algorithms' constructor; 2) for other methods, the parallel execution occurs only in hyperparameter tuning phase and not in the training phase.
 
-    - The pde methods should implement `set_spatial_grid(self, s)`, which fixes the spatial grid over which the functions are evaluated.
+    - The method for discovering PDEs should implement `set_spatial_grid(self, s)`, which fixes the spatial grid over which the functions are evaluated.
 
 The `Regressor` class should implement the following methods:
 - `fit(t_train, u_train, u_dot_train)`:
@@ -117,7 +116,7 @@ trains the model given the observed trajectory and approximated derivatives.
 
 ## Citation
 
-If you find our benchmark or dataset useful for your work, please cite us with
+If you find our benchmark or dataset useful for your work, consider a ⭐️ and citing us with
 
 ```bibtex
 @article{bideh2025mdbench,
@@ -130,4 +129,4 @@ If you find our benchmark or dataset useful for your work, please cite us with
 
 ## License
 
-This project is licensed under the Apache-2.0 License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
