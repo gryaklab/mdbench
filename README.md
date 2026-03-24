@@ -3,7 +3,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.13.5-blue?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
-[![arXiv](https://img.shields.io/badge/arXiv-2506.07918-b31b1b.svg?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2509.20529)
+[![arXiv](https://img.shields.io/badge/arXiv-2509.20529-b31b1b.svg?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2509.20529)
 [![Datasets](https://img.shields.io/badge/Datasets-10.5281/zenodo.17611099-orange?style=for-the-badge)](https://doi.org/10.5281/zenodo.17611099)
 
 **Official implementation of paper [MDBench: Benchmarking Data-Driven Methods for Model Discovery](https://arxiv.org/abs/2509.20529) (AAAI 2026 Oral)**
